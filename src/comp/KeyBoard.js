@@ -17,7 +17,7 @@ const {board,setBoard,currentAttempt,setCurrentAttempt} = useContext(AppContext)
        if(currentAttempt.cellAttempt === 4){
         const newAttempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt + 1, cellAttempt : 0}
         setCurrentAttempt(newAttempt)
-        alert('done')
+        console.log('done')
        }
        
     }
