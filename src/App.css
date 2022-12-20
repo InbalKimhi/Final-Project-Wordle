@@ -27,6 +27,7 @@ section .inputs section {
 section .inputs section input {
   width: 100%;
   border-radius: 5%;
+  text-align: center;
 }
 section .keyboard {
   display: flex;
