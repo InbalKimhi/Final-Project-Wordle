@@ -12,7 +12,7 @@ export function Inputs(){
             {lstRow.map((rowNum)=>(
                 <section>
                     {lstcell.map((cellNum)=>(
-                        <input maxLength={1} value={board[rowNum][cellNum]} readOnly></input>
+                        <input maxLength={1} value={board[rowNum][cellNum]} readOnly ></input>
                     ))}
             </section>
             ))}

@@ -3,6 +3,7 @@ import App from "./App";
 import { Game } from "./pages/Game";
 import { Home } from "./pages/Home";
 
+
 export const router = createBrowserRouter([
     {
       element: <App/>,
