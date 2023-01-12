@@ -1,14 +1,34 @@
-
+import { useContext } from "react"
+import { ModalContext } from '../Providers/ModalContext';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router-dom";
 
 export function Home(){
+
+    const {user} = useContext(ModalContext)
+    
+    const navigation = useNavigate()
+    
+    function handleNav(){
+        navigation("/game");
+    }
+
     return(
         <>
-        <h1 className="d-flex justify-content-center">WELCOME USER</h1>
-        <center>
-        <p>hi ziv! im adding this text just for the assigment handin.
-        <br/>
-        Because of my progress so far, to go into the game please press on the word wordle on the top left corner, aswell as the game can only work from the virtual keyboard </p>
-        </center>
+        {user ?
+        <>
+        <div className="text-center" id="center">
+            <h1 className="d-flex justify-content-center">WELCOME {user.username.toUpperCase()}</h1>
+            <Button onClick={handleNav} variant="outline-secondary">To The Game</Button> 
+        </div>
+        </> : 
+        <>
+        <div className="text-center" id="center">
+            <h1 className="d-flex justify-content-center">WELCOME GUEST</h1>
+            <Button onClick={handleNav} variant="outline-secondary">To The Game</Button> 
+        </div>
+         </>
+         }
         </>
     )
 }

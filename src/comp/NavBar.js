@@ -6,7 +6,10 @@ import { Login } from "./loginModal";
 
 export function NavBar(){
 
-    const {handleShow,handleShowLogin} = useContext(ModalContext)
+    const {handleShow,handleShowLogin,user} = useContext(ModalContext)
+    function handleLogout(){
+        localStorage.removeItem(`${user.username}`)
+    }
 
     return(
         <>
@@ -22,8 +25,15 @@ export function NavBar(){
             <Example/>
             </div>
             <div className="navbar-nav">
+                {user ?  
+                <>
+                <Link className='nav-link active'> hello {user.username}</Link>
+                <Link className='nav-link active' onClick={handleLogout}>logout</Link> 
+                </>:
+                <>
                 <Link className="nav-link active" onClick={handleShowLogin}>login</Link>
                 <Login/>
+                </>}
             </div>
             </div>
         </div>
