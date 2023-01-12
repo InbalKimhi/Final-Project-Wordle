@@ -9,15 +9,16 @@ const {board,setBoard,currentAttempt,setCurrentAttempt} = useContext(AppContext)
     function handleOnClick(e){
        const newboard = [...board]
        newboard[currentAttempt.rowAttempt][currentAttempt.cellAttempt] = e.target.innerText
-       setBoard(newboard)
+       setBoard(newboard);
 
-       const attempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt, cellAttempt :currentAttempt.cellAttempt + 1}
-       setCurrentAttempt(attempt)
+       const attempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt, cellAttempt :currentAttempt.cellAttempt + 1};
+       setCurrentAttempt(attempt);
        
        if(currentAttempt.cellAttempt === 4){
-        const newAttempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt + 1, cellAttempt : 0}
-        setCurrentAttempt(newAttempt)
-        console.log('done')
+
+        const newAttempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt + 1, cellAttempt : 0};
+        setCurrentAttempt(newAttempt);
+        console.log('done');
        }
        
     }
