@@ -4,18 +4,58 @@ import { AppContext } from '../Providers/AppContext';
 
 export function KeyBoard(){
 
-const {board,setBoard,currentAttempt,setCurrentAttempt} = useContext(AppContext)
+const {board,setBoard,currentAttempt,setCurrentAttempt,word,wordDict} = useContext(AppContext)
+
+function checkWord(){
+    if(currentAttempt.cellAttempt === 4){
+        
+        let wordToCheck = ''
+        board[currentAttempt.rowAttempt].forEach( object => {
+            wordToCheck += object.letter
+        });
+
+        console.log(wordDict)
+            
+        for (let i = 0; i < 5; i++){
+            console.log(word[i], 'check :',wordToCheck[i])
+            if(wordToCheck[i] === word[i]){
+                
+                wordDict.set(word[i], wordDict.get(word[i]) - 1 )
+                board[currentAttempt.rowAttempt][i].tileColor = 'green'
+        }}    
+
+        for (let i = 0; i < 5; i++){   
+            if(word.includes(wordToCheck[i])){
+                
+                if(wordDict.get(wordToCheck[i]) <= 0 && board[currentAttempt.rowAttempt][i].tileColor === ''){
+                    board[currentAttempt.rowAttempt][i].tileColor = 'gray'
+
+                }else if(board[currentAttempt.rowAttempt][i].tileColor === ''){
+                    
+                    wordDict.set(wordToCheck[i], wordDict.get(wordToCheck[i]) - 1 )
+                    board[currentAttempt.rowAttempt][i].tileColor = 'yellow'
+                }
+
+            }else{
+
+                board[currentAttempt.rowAttempt][i].tileColor = 'gray'
+            }
+        }
+        
+    }
+   }
+
 
     function handleOnClick(e){
        const newboard = [...board]
-       newboard[currentAttempt.rowAttempt][currentAttempt.cellAttempt] = e.target.innerText
+       newboard[currentAttempt.rowAttempt][currentAttempt.cellAttempt].letter = e.target.innerText
        setBoard(newboard);
 
        const attempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt, cellAttempt :currentAttempt.cellAttempt + 1};
        setCurrentAttempt(attempt);
        
        if(currentAttempt.cellAttempt === 4){
-
+        checkWord()
         const newAttempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt + 1, cellAttempt : 0};
         setCurrentAttempt(newAttempt);
         console.log('done');
