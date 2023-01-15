@@ -148,8 +148,16 @@ section .keyboard #row3 button {
     justify-content: center;
   }
 
-.correctTile{
+.green {
   background-color: #c0f3bd;
+}
+
+.yellow {
+  background-color: #fcf3c3;
+}
+
+.gray {
+  background-color: rgb(202, 202, 202);
 }
 
 #center{
