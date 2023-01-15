@@ -38,6 +38,15 @@ function checkWordColor(wordToCheck){
         
     }
 
+    function checkWord(wordToCheck){
+
+        if(currentAttempt.rowAttempt === 3 && word != wordToCheck ){
+            console.log('failed')
+        }else if(wordToCheck === word){
+            console.log('sucsses')
+        }
+    }
+
     function handleOnClick(e){
        const newboard = [...board]
        newboard[currentAttempt.rowAttempt][currentAttempt.cellAttempt].letter = e.target.innerText
@@ -54,6 +63,7 @@ function checkWordColor(wordToCheck){
         });
 
         checkWordColor(wordToCheck)
+        checkWord(wordToCheck)
 
         const newAttempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt + 1, cellAttempt : 0};
         setCurrentAttempt(newAttempt);
