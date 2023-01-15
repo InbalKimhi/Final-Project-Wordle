@@ -8,20 +8,12 @@ export function Game(){
     
     const [board,setBoard] = useState(Board)
     const [currentAttempt,setCurrentAttempt] = useState({rowAttempt: 0, cellAttempt: 0})
+    const word = 'EVENT'
     
-    const word = 'MONEY'
-    const wordDict = new Map()
-
-    for(const letter of word){
-        if(wordDict.get(letter)){
-            wordDict.set(letter,wordDict.get(letter) + 1)
-        }else{
-            wordDict.set(letter, 1)
-        }
-    }
+    
 
     return(
-    <AppContext.Provider value={{board,setBoard,currentAttempt,setCurrentAttempt,word,wordDict}}>
+    <AppContext.Provider value={{board,setBoard,currentAttempt,setCurrentAttempt,word}}>
         <section className='containter'>
             <Inputs/>
             <KeyBoard/>   

@@ -26,7 +26,7 @@ section .inputs section {
 }
 section .inputs section input {
   width: 100%;
-  border-radius: 10%;
+  border-radius: 5%;
   text-align: center;
 }
 section .keyboard {
@@ -148,6 +148,9 @@ section .keyboard #row3 button {
     justify-content: center;
   }
 
+.correctTile{
+  background-color: #c0f3bd;
+}
 
 #center{
   position: absolute;
@@ -155,16 +158,4 @@ section .keyboard #row3 button {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-}
-
-.green{
-  background-color: #c0f3bd;
-}
-
-.yellow{
-  background-color: #fcf3c3;
-}
-
-.gray{
-  background-color: rgb(202, 202, 202);
 }
