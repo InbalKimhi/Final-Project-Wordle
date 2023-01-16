@@ -8,9 +8,10 @@ export function Game(){
     
     const [board,setBoard] = useState(Board)
     const [currentAttempt,setCurrentAttempt] = useState({rowAttempt: 0, cellAttempt: 0})
-    const word = 'EVENT'
+    const word = 'MONEY'
     
     const wordDict = new Map()
+    
     word.split('').forEach(letter => {
         if(wordDict.get(letter)){
             wordDict.set(letter,wordDict.get(letter)+ 1)

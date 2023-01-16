@@ -33,6 +33,7 @@ export function checkWord(wordToCheck,word,currentAttempt){
 
     if(currentAttempt.rowAttempt === 3 && word !== wordToCheck ){
         console.log('failed')
+        
     }else if(wordToCheck === word){
         console.log('sucsses')
     }

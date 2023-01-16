@@ -1,11 +1,15 @@
-import React from 'react';
-import { useContext } from 'react';
+import { useContext} from 'react';
 import { AppContext } from '../Providers/AppContext';
 import { checkWord, checkWordColor } from '../gameLogic/wordLogic';
+
 export function KeyBoard(){
 
 const {board,setBoard,currentAttempt,setCurrentAttempt,word,wordDict} = useContext(AppContext)
-
+    
+    const keysDict = new Map()
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(letter => {
+            keysDict.set(letter,'')
+    });
 
     function handleOnClick(e){
        const newboard = [...board]
@@ -32,45 +36,60 @@ const {board,setBoard,currentAttempt,setCurrentAttempt,word,wordDict} = useConte
        
     }
 
+    function colorForButton(keyLetter){
+        let buttonColor = ''
+        board.forEach((row)=>{
+            row.forEach((obj)=>{
+                if(obj.letter === keyLetter){
+                    if(obj.tileColor === 'green'){
+                        
+                        buttonColor = '#c0f3bd' 
+                        keysDict.set(keyLetter,'green')
+                    
+                    }else if(obj.tileColor === 'yellow' && ( keysDict.get(keyLetter) === '' || keysDict.get(keyLetter) === 'gray') ){
+                        
+                        buttonColor = '#fcf3c3'
+                        keysDict.set(keyLetter,'yellow')
+
+                    }else if(obj.tileColor === 'gray' && keysDict.get(keyLetter) === ''){
+                        
+                        keysDict.set(keyLetter,'gray')
+                        buttonColor = 'rgb(202, 202, 202)'
+                    }     
+                }
+            })
+        })
+        return buttonColor
+    }
+
     return(
         <div className="keyboard">
             <section id="row1">
 
-                <button onClick={handleOnClick}>Q</button>
-                <button onClick={handleOnClick}>W</button>
-                <button onClick={handleOnClick}>E</button>
-                <button onClick={handleOnClick}>R</button>
-                <button onClick={handleOnClick}>T</button>
-                <button onClick={handleOnClick}>Y</button>
-                <button onClick={handleOnClick}>U</button>
-                <button onClick={handleOnClick}>I</button>
-                <button onClick={handleOnClick}>O</button>
-                <button onClick={handleOnClick}>P</button>
+                {['Q','W','E','R','T','Y','U','I','O','P'].map(
+                    (letter) => (
+                        <button style={ {backgroundColor : colorForButton(letter)}} onClick={handleOnClick} key={letter}>{letter}</button>
+                    )
+                )}
 
             </section>
             <section id="row2" >
-                
-                <button onClick={handleOnClick}>A</button>
-                <button onClick={handleOnClick}>S</button>
-                <button onClick={handleOnClick}>D</button>
-                <button onClick={handleOnClick}>F</button>
-                <button onClick={handleOnClick}>G</button>
-                <button onClick={handleOnClick}>H</button>
-                <button onClick={handleOnClick}>J</button>
-                <button onClick={handleOnClick}>K</button>
-                <button onClick={handleOnClick}>L</button>
+
+                {['A','S','D','F','G','H','J','K','L'].map(
+                    (letter) => (
+                        <button style={ {backgroundColor : colorForButton(letter)}} onClick={handleOnClick} key={letter}>{letter}</button>
+                    )
+                )}
 
             </section>
             <section id="row3">
 
                 <button onClick={handleOnClick}>ENTER</button>
-                <button onClick={handleOnClick}>Z</button>
-                <button onClick={handleOnClick}>X</button>
-                <button onClick={handleOnClick}>C</button>
-                <button onClick={handleOnClick}>V</button>
-                <button onClick={handleOnClick}>B</button>
-                <button onClick={handleOnClick}>N</button>
-                <button onClick={handleOnClick}>M</button>
+                {['Z','X','C','V','B','N','M'].map(
+                (letter) => (
+                    <button style={ {backgroundColor : colorForButton(letter)}} onClick={handleOnClick} key={letter}>{letter}</button>
+                )
+                )}
                 <button onClick={handleOnClick}>DEL</button>
 
             </section>

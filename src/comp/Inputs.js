@@ -10,9 +10,9 @@ export function Inputs(){
         <div className="inputs">
 
             {lstRow.map((rowNum)=>(
-                <section>
+                <section key={rowNum}>
                     {lstcell.map((cellNum)=>(
-                        <input className={board[rowNum][cellNum].tileColor} maxLength={1} value={board[rowNum][cellNum].letter} readOnly ></input>
+                        <input className={board[rowNum][cellNum].tileColor} value={board[rowNum][cellNum].letter} key={`key-${rowNum}-${cellNum}`} readOnly ></input>
                     ))}
             </section>
             ))}
