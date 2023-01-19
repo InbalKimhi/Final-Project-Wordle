@@ -1,14 +1,15 @@
 import { useContext } from "react";
 import {Link} from "react-router-dom";
-import { ModalContext } from "../Providers/ModalContext";
+import { InterfaceModalContext, ModalContext } from "../Providers/ModalContext";
 import { Example } from "./Modal";
 import { Login } from "./loginModal";
 
-export function NavBar(){
 
-    const {handleShow,handleShowLogin,user} = useContext(ModalContext)
+export function NavBar() :JSX.Element{
+
+    const {handleShow,handleShowLogin,user} = useContext(ModalContext) as InterfaceModalContext
     function handleLogout(){
-        localStorage.removeItem(`${user.username}`)
+        localStorage.removeItem(`${user?.username}`)
     }
 
     return(
@@ -21,17 +22,17 @@ export function NavBar(){
                 <Link className="nav-link active" aria-current="page" to={`/`}>Home</Link>
             </div>
             <div className="navbar-nav">
-            <Link className='nav-link active' onClick={handleShow}> Info </Link>
+            <Link className='nav-link active' to={''} onClick={handleShow}> Info </Link>
             <Example/>
             </div>
             <div className="navbar-nav">
                 {user ?  
                 <>
-                <Link className='nav-link active'> hello {user.username}</Link>
-                <Link className='nav-link active' onClick={handleLogout}>logout</Link> 
+                <Link to={''} className='nav-link active'> hello {user.username}</Link>
+                <Link to={''} className='nav-link active' onClick={handleLogout}>logout</Link> 
                 </>:
                 <>
-                <Link className="nav-link active" onClick={handleShowLogin}>login</Link>
+                <Link to={''} className="nav-link active" onClick={handleShowLogin}>login</Link>
                 <Login/>
                 </>}
             </div>

@@ -1,21 +1,21 @@
 import './App.css';
 import { Outlet } from 'react-router-dom';
 import { NavBar } from './comp/NavBar';
-import { ModalContext } from './Providers/ModalContext';
+import { ModalContext, User } from './Providers/ModalContext';
 import React, { useState, useEffect } from 'react';
 
-export function App() {
+export function App(): JSX.Element {
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [showLogin, setshowLogin] = useState(false);
+  const [showLogin, setshowLogin] = useState<boolean>(false);
 
   const handleCloseLogin = () => setshowLogin(false);
   const handleShowLogin = () => setshowLogin(true);
 
-  const [user,setuser] = useState(null)
+  const [user,setuser] = useState<User | null>(null)
 
   useEffect(() => {
     user ?

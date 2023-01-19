@@ -1,12 +1,13 @@
 
+import React from 'react';
 import { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { ModalContext } from '../Providers/ModalContext';
+import { InterfaceModalContext, ModalContext } from '../Providers/ModalContext';
 
-export function Example() {
+export function Example() :JSX.Element {
 
-  const {handleClose,show} = useContext(ModalContext)
+  const {handleClose,show} = useContext(ModalContext) as InterfaceModalContext
 
   return (
     <>
@@ -17,7 +18,7 @@ export function Example() {
         keyboard={false}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
-        centere
+        centere='true'
       >
        <Modal.Header id="modalH" closeButton>
           <Modal.Title id="contained-modal-title-vcenter">

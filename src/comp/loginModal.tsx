@@ -1,18 +1,19 @@
 import React, { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { ModalContext } from '../Providers/ModalContext';
+import { InterfaceModalContext, ModalContext } from '../Providers/ModalContext';
 import { useRef } from 'react';
+import { User } from '../Providers/ModalContext';
 
-export function Login() {
+export function Login() :JSX.Element{
 
-    const {handleCloseLogin,showLogin,setuser} = useContext(ModalContext)
-    const username = useRef(null);
-    const email = useRef(null);
-    const password = useRef(null);
+    const {handleCloseLogin,showLogin,setuser} = useContext(ModalContext) as InterfaceModalContext
+    const username : React.MutableRefObject<HTMLInputElement | null> = useRef(null);
+    const email : React.MutableRefObject<HTMLInputElement | null> = useRef(null);
+    const password : React.MutableRefObject<HTMLInputElement | null> = useRef(null);
 
     function handleUser(){
-      const newUser = {username: username.current.value, email : email.current.value, password : password.current.value }
+      const newUser : User = {username: username.current?.value, email : email.current?.value, password : password.current?.value }
       setuser(newUser)
       handleCloseLogin()
     }
@@ -26,7 +27,7 @@ export function Login() {
         keyboard={false}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
-        centere
+        centere='true'
       >
         <Modal.Header closeButton>
           <Modal.Title>LOGIN FORM</Modal.Title>

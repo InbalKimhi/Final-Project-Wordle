@@ -1,20 +1,27 @@
+import React from 'react';
 import { Inputs } from '../comp/Inputs';
 import { KeyBoard } from '../comp/KeyBoard';
 import { AppContext } from '../Providers/AppContext';
 import { Board } from '../comp/Board';
 import { useState } from 'react';
 
-export function Game(){
+export interface CurrentAttempt{
+    rowAttempt : number,
+    cellAttempt : number
+}
+
+export function Game(): JSX.Element{
+    
     
     const [board,setBoard] = useState(Board)
     const [currentAttempt,setCurrentAttempt] = useState({rowAttempt: 0, cellAttempt: 0})
-    const word = 'MONEY'
+    const word : string = 'MONEY'
     
-    const wordDict = new Map()
+    const wordDict : Map<string,number> = new Map<string,number>()
     
-    word.split('').forEach(letter => {
+    word.split('').forEach((letter : string) => {
         if(wordDict.get(letter)){
-            wordDict.set(letter,wordDict.get(letter)+ 1)
+            wordDict.set(letter,wordDict.get(letter)!+ 1)
         }else{
             wordDict.set(letter,1)
         }

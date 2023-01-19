@@ -1,45 +1,49 @@
+import React from 'react';
 import { useContext} from 'react';
-import { AppContext } from '../Providers/AppContext';
+import { AppContext, InterfaceAppContext } from '../Providers/AppContext';
 import { checkWord, checkWordColor } from '../gameLogic/wordLogic';
+import { boardobject } from './Board';
+import { CurrentAttempt } from '../pages/Game';
 
-export function KeyBoard(){
+export function KeyBoard(): JSX.Element{
 
-const {board,setBoard,currentAttempt,setCurrentAttempt,word,wordDict} = useContext(AppContext)
+const {board,setBoard,currentAttempt,setCurrentAttempt,word,wordDict} = useContext(AppContext) as InterfaceAppContext
     
-    const keysDict = new Map()
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(letter => {
+    const keysDict : Map<string,string> = new Map()
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach((letter : string) => {
             keysDict.set(letter,'')
     });
 
-    function handleOnClick(e){
-       const newboard = [...board]
-       newboard[currentAttempt.rowAttempt][currentAttempt.cellAttempt].letter = e.target.innerText
+    function handleOnClick(e :React.MouseEvent<HTMLButtonElement>){
+       const newboard: boardobject[][] = [...board]
+       newboard[currentAttempt.rowAttempt][currentAttempt.cellAttempt].letter = (e.target as HTMLButtonElement).innerText
        setBoard(newboard);
 
-       const attempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt, cellAttempt :currentAttempt.cellAttempt + 1};
+       const attempt : CurrentAttempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt, cellAttempt :currentAttempt.cellAttempt + 1};
        setCurrentAttempt(attempt);
        
        if(currentAttempt.cellAttempt === 4){
         
-        let wordToCheck = ''
-        board[currentAttempt.rowAttempt].forEach( object => {
+        let wordToCheck : string = ''
+        board[currentAttempt.rowAttempt].forEach( (object : boardobject) => {
             wordToCheck += object.letter
         });
 
         checkWordColor(wordToCheck,word,wordDict,currentAttempt,board)
         checkWord(wordToCheck,word,currentAttempt)
 
-        const newAttempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt + 1, cellAttempt : 0};
+        const newAttempt : CurrentAttempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt + 1, cellAttempt : 0};
         setCurrentAttempt(newAttempt);
         console.log('done');
        }
        
     }
 
-    function colorForButton(keyLetter){
-        let buttonColor = ''
-        board.forEach((row)=>{
-            row.forEach((obj)=>{
+    function colorForButton(keyLetter : string) : string{
+        let buttonColor : string = ''
+        board.forEach((row : boardobject[])=>{
+            row.forEach((obj :boardobject)=>{
+                
                 if(obj.letter === keyLetter){
                     if(obj.tileColor === 'green'){
                         
