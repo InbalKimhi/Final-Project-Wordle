@@ -8,8 +8,6 @@ export interface InterfaceAppContext{
     setBoard: React.Dispatch<React.SetStateAction<boardobject[][]>>,
     currentAttempt: CurrentAttempt,
     setCurrentAttempt: React.Dispatch<CurrentAttempt>,
-    word: string,
-    wordDict: Map<string,number>;
 }
 
 export const AppContext = createContext<InterfaceAppContext | null>(null);

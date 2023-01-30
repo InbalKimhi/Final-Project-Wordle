@@ -1,43 +1,26 @@
-import { CurrentAttempt } from "../pages/Game"
-import { boardobject } from "../comp/Board"
+import { boardobject } from "../comp/Board";
+import { CurrentAttempt } from "../pages/Game";
 
-export function checkWordColor(wordToCheck : string ,word : string ,wordDict : Map<string,number> ,currentAttempt : CurrentAttempt,board : boardobject[][]){
+export async function checkWordColor(wordToCheck : string, currentAttempt : CurrentAttempt, board : boardobject[][]){
 
-    for (let i = 0; i < 5; i++){
-        
-        if(wordToCheck[i] === word[i]){
-            
-            wordDict.set(word[i], wordDict.get(word[i])! - 1 )
-            board[currentAttempt.rowAttempt][i].tileColor = 'green'
-    }}    
+    const response = await fetch('http://localhost:3333/word/check', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({userWord : wordToCheck})
+      });
+      const result = await response.json() ; 
+      
+      for (let i = 0; i < 5; i++){
+        board[currentAttempt.rowAttempt][i].tileColor = result.colorTileArray[i]
+      }
 
-    for (let i = 0; i < 5; i++){   
-        if(word.includes(wordToCheck[i])){
-            
-            if(wordDict.get(wordToCheck[i])! <= 0 && board[currentAttempt.rowAttempt][i].tileColor === ''){
-                
-                board[currentAttempt.rowAttempt][i].tileColor = 'gray'
+      if(result.correctGuess){
+        console.log('sucsess')
+      }else if(currentAttempt.rowAttempt === 3){
+        console.log('fail')
+      }
 
-            }else if(board[currentAttempt.rowAttempt][i].tileColor === ''){
-                
-                wordDict.set(wordToCheck[i], wordDict.get(wordToCheck[i])! - 1 )
-                board[currentAttempt.rowAttempt][i].tileColor = 'yellow'
-            }
 
-        }else{
-
-            board[currentAttempt.rowAttempt][i].tileColor = 'gray'
-        }
     }
-    
-}
-
-export function checkWord(wordToCheck : string ,word : string ,currentAttempt : CurrentAttempt){
-
-    if(currentAttempt.rowAttempt === 3 && word !== wordToCheck ){
-        console.log('failed')
-        
-    }else if(wordToCheck === word){
-        console.log('sucsses')
-    }
-}

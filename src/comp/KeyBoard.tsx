@@ -1,20 +1,20 @@
 import React from 'react';
 import { useContext} from 'react';
 import { AppContext, InterfaceAppContext } from '../Providers/AppContext';
-import { checkWord, checkWordColor } from '../gameLogic/wordLogic';
+import { checkWordColor } from '../gameLogic/wordLogic';
 import { boardobject } from './Board';
 import { CurrentAttempt } from '../pages/Game';
 
 export function KeyBoard(): JSX.Element{
 
-const {board,setBoard,currentAttempt,setCurrentAttempt,word,wordDict} = useContext(AppContext) as InterfaceAppContext
+const {board,setBoard,currentAttempt,setCurrentAttempt} = useContext(AppContext) as InterfaceAppContext
     
     const keysDict : Map<string,string> = new Map()
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach((letter : string) => {
             keysDict.set(letter,'')
     });
 
-    function handleOnClick(e :React.MouseEvent<HTMLButtonElement>){
+    async function handleOnClick(e :React.MouseEvent<HTMLButtonElement>){
        const newboard: boardobject[][] = [...board]
        newboard[currentAttempt.rowAttempt][currentAttempt.cellAttempt].letter = (e.target as HTMLButtonElement).innerText
        setBoard(newboard);
@@ -29,8 +29,7 @@ const {board,setBoard,currentAttempt,setCurrentAttempt,word,wordDict} = useConte
             wordToCheck += object.letter
         });
 
-        checkWordColor(wordToCheck,word,wordDict,currentAttempt,board)
-        checkWord(wordToCheck,word,currentAttempt)
+        await checkWordColor(wordToCheck,currentAttempt,board)
 
         const newAttempt : CurrentAttempt = {...currentAttempt,rowAttempt : currentAttempt.rowAttempt + 1, cellAttempt : 0};
         setCurrentAttempt(newAttempt);
